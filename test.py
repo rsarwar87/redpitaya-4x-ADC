@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 
 host = os.getenv('HOST', '192.168.1.7')
-client = connect(host, 'adc-dac-bram', restart=False)
+client = connect(host, 'adc-4x-bram', restart=False)
 driver = AdcDacBram(client)
 
 print('DAC size = {}'.format(driver.dac_size))
@@ -26,8 +26,8 @@ t_us = 1e9 * t
 # Set modulation on DAC
 amp_mod = 0.99
 freq_mod = sampling_frequency / driver.dac_size * 10 
-driver.dac[0, :] = amp_mod * np.cos(2 * np.pi * freq_mod * t * 500)
-driver.dac[1, :] = amp_mod * np.sin(2 * np.pi * freq_mod * t * 500)
+driver.dac[0, :] = amp_mod * np.cos(2 * np.pi * freq_mod * t * 1)
+driver.dac[1, :] = amp_mod * np.sin(2 * np.pi * freq_mod * t * 1)
 driver.set_dac()
 
 # Dynamic plot
@@ -40,7 +40,7 @@ ax.add_line(line0)
 ax.add_line(line1)
 ax.set_xlabel('Time (us)')
 ax.set_ylabel('ADC Raw data')
-ax.set_xlim((t_us[0], t_us[100]))
+ax.set_xlim((t_us[0], t_us[-1]))
 ax.set_ylim((-2**13, 2**13))
 ax.legend()
 fig.canvas.draw()
