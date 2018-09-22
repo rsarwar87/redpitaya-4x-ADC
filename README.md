@@ -1,8 +1,8 @@
 Implementation for 4x upsampling of ADC input data. FIR coefficients computed using MATLAB
 
-upfac = 7;
+upfac = 4;
 alpha = 0.5;
-h1 = intfilt(upfac,2,0.1);
+h1 = intfilt(upfac,6,0.1);
 
 How it works:
 1. From PS
